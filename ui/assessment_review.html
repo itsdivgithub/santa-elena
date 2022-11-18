@@ -1,0 +1,718 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Santa Elena - Audit Contract Review</title>
+    
+    <link rel="stylesheet" href="assets/css/main/app.css">
+    <link rel="stylesheet" href="assets/css/main/app-dark.css">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.svg" type="image/x-icon">
+    <link rel="shortcut icon" href="assets/images/logo/favicon.png" type="image/png">
+    
+    <link rel="stylesheet" href="assets/css/shared/iconly.css">
+    <!-- Web3 -->
+    <link rel="stylesheet" href="assets/css/shared/iconly.css">
+    <script src="https://unpkg.com/ipfs-http-client-lite/dist/index.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
+    <script src="https://cdn.ethers.io/lib/ethers-5.0.umd.min.js" type="text/javascript"></script>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/ethjs@0.3.4/dist/ethjs.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/web3@latest/dist/web3.min.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div id="sidebar" class="active">
+            <div class="sidebar-wrapper active">
+    <div class="sidebar-header position-relative">
+        <div class="d-flex justify-content-between align-items-center">
+            <div class="logo">
+                <a href="index.html"><img src="assets/images/logo/logo.svg" alt="Logo" srcset=""></a>
+            </div>
+            <div class="theme-toggle d-flex gap-2  align-items-center mt-2">
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--system-uicons" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 21 21"><g fill="none" fill-rule="evenodd" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round"><path d="M10.5 14.5c2.219 0 4-1.763 4-3.982a4.003 4.003 0 0 0-4-4.018c-2.219 0-4 1.781-4 4c0 2.219 1.781 4 4 4zM4.136 4.136L5.55 5.55m9.9 9.9l1.414 1.414M1.5 10.5h2m14 0h2M4.135 16.863L5.55 15.45m9.899-9.9l1.414-1.415M10.5 19.5v-2m0-14v-2" opacity=".3"></path><g transform="translate(-210 -1)"><path d="M220.5 2.5v2m6.5.5l-1.5 1.5"></path><circle cx="220.5" cy="11.5" r="4"></circle><path d="m214 5l1.5 1.5m5 14v-2m6.5-.5l-1.5-1.5M214 18l1.5-1.5m-4-5h2m14 0h2"></path></g></g></svg>
+                <div class="form-check form-switch fs-6">
+                    <input class="form-check-input  me-0" type="checkbox" id="toggle-dark" >
+                    <label class="form-check-label" ></label>
+                </div>
+                <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" aria-hidden="true" role="img" class="iconify iconify--mdi" width="20" height="20" preserveAspectRatio="xMidYMid meet" viewBox="0 0 24 24"><path fill="currentColor" d="m17.75 4.09l-2.53 1.94l.91 3.06l-2.63-1.81l-2.63 1.81l.91-3.06l-2.53-1.94L12.44 4l1.06-3l1.06 3l3.19.09m3.5 6.91l-1.64 1.25l.59 1.98l-1.7-1.17l-1.7 1.17l.59-1.98L15.75 11l2.06-.05L18.5 9l.69 1.95l2.06.05m-2.28 4.95c.83-.08 1.72 1.1 1.19 1.85c-.32.45-.66.87-1.08 1.27C15.17 23 8.84 23 4.94 19.07c-3.91-3.9-3.91-10.24 0-14.14c.4-.4.82-.76 1.27-1.08c.75-.53 1.93.36 1.85 1.19c-.27 2.86.69 5.83 2.89 8.02a9.96 9.96 0 0 0 8.02 2.89m-1.64 2.02a12.08 12.08 0 0 1-7.8-3.47c-2.17-2.19-3.33-5-3.49-7.82c-2.81 3.14-2.7 7.96.31 10.98c3.02 3.01 7.84 3.12 10.98.31Z"></path></svg>
+            </div>
+            <div class="sidebar-toggler  x">
+                <a href="#" class="sidebar-hide d-xl-none d-block"><i class="bi bi-x bi-middle"></i></a>
+            </div>
+        </div>
+        <div>
+            <a href="#" id="connect_web3" class="btn btn-primary rounded">Connect Web 3</a>
+        </div>
+        <div>
+            
+        </div>
+    </div>
+    <div class="sidebar-menu">
+        <ul class="menu">
+            <li class="sidebar-title">Menu</li>
+            
+            <li
+                class="sidebar-item ">
+                <a href="index.html" class='sidebar-link'>
+                    <i class="bi bi-grid-fill"></i>
+                    <span>Assessments</span>
+                </a>
+            </li>
+            <li class="sidebar-item ">
+                <a href="audit.html" class='sidebar-link'>
+                    <i class="bi bi-file-post"></i>
+                    <span>Audit</span>
+                </a>
+            </li>
+            <li class="sidebar-item ">
+                <a href="atheneum.html" class='sidebar-link'>
+                    <i class="bi bi-files"></i>
+                    <span>Atheneum</span>
+                </a>
+            </li> 
+            <li>
+                <a href="https://github.com/cryptotwilight/santa-elena" class='sidebar-link'>
+                    <i class="bi bi bi-github"></i>
+                    <span>Source Code</span>
+                </a>
+            </li>           
+        </ul>
+    </div>
+</div>
+        </div>
+        <div id="main">
+            <header class="mb-3">
+                <a href="#" class="burger-btn d-block d-xl-none">
+                    <i class="bi bi-justify fs-3"></i>
+                </a>
+            </header>
+                        
+            <div class="page-heading">
+                <h3>Environmental Assessment - <span id="assessment_title"></span></h3>
+                <br/><span id="show_wallet"></span>
+            </div>
+            <div class="page-content">
+                <section class="row">
+                    <div class="col-12 col-lg-9">
+                        <div class="row">
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon purple mb-2">
+                                                    <i class="iconly-boldFolder"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Submitted Files</h6>
+                                                <h6 class="font-extrabold mb-0"><span id="submitted_files"></span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon blue mb-2">
+                                                    <i class="iconly-boldInfo-Circle"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Assessment Status</h6>
+                                                <h6 class="font-extrabold mb-0"><span id="assessment_status"></span></h6>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon green mb-2">
+                                                    <i class="iconly-boldProfile"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Owner</h6>
+                                                <h6 class="font-extrabold mb-0"><span id="ownerName"></span></h6>
+                                                <small><span id="ownerAddress"></span></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 col-lg-3 col-md-6">
+                                <div class="card">
+                                    <div class="card-body px-4 py-4-5">
+                                        <div class="row">
+                                            <div class="col-md-4 col-lg-12 col-xl-12 col-xxl-5 d-flex justify-content-start ">
+                                                <div class="stats-icon red mb-2">
+                                                    <i class="iconly-boldActivity"></i>
+                                                </div>
+                                            </div>
+                                            <div class="col-md-8 col-lg-12 col-xl-12 col-xxl-7">
+                                                <h6 class="text-muted font-semibold">Auditor</h6>
+                                                <h6 class="font-extrabold mb-0"><span id="auditorName"></span></h6>
+                                                <small><span id="auditor"></span></small>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                                <span id="blockchain_message_display"></span>
+                        </div>
+                        <div class="row">
+                            <div class="col-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                        <h4>Files</h4>                                    
+                                    </div>
+                                    <div class="card-body">
+                                        <div class="card-content">
+                                            <!-- table hover -->
+                                            <div class="table-responsive">
+                                                <table class="table table-hover mb-0" id="audit_files_table">
+                                                    <thead>
+                                                        <tr>
+                                                            <th>File Label</th>
+                                                            <th>Content ID</th>
+                                                            <th>Private</th>
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+
+                            <div class="col-12 col-xl-12" id="submit_audit_display">
+                            
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-12 col-lg-3">
+                        <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-xl">
+                                        <img src="assets/images/logo/logo.png" alt="Face 1"><!-- replace with seal -->
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">Audit Declaration</h5>
+                                        <h6 class="text-muted mb-0"><span id="audit_declaration"></span></h6>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">
+                                    <div class="avatar avatar-xl">
+                                        <i class="bi-files"></i>
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">Assessment Notes</h5>
+                                        <h6 class="text-muted mb-0"><span id="assessment_notes"></span></h6>
+                                    </div>                
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <span id="show_book_for_audit_card_display"></span>
+                        <span id="show_make_public_card_display"></span>
+                        <span id="assessment_times_card_display"></span>
+                        <span id="audit_report_card_display"></span>
+                        <span id="withdraw_card_display"></span>
+                    </div>
+                </section>
+            </div>
+            <footer>
+                <div class="footer clearfix mb-0 text-muted">
+                    <div class="float-start">
+                        <p>2022 &copy; Santa Elena</p>
+                    </div>
+                    <div class="float-end">
+                        <p>Crafted with <span class="text-danger"><i class="bi bi-heart"></i></span> by <a
+                                href="https://saugi.me">Saugi</a></p>
+                    </div>
+                </div>
+            </footer>
+        </div>
+    </div>
+    <script src="assets/js/bootstrap.js"></script>
+    <script src="assets/js/app.js"></script>
+    
+    <!-- abi -->
+    <script src="assets/js/web3/abi/i_se_registry_abi.js"></script>
+    <script src="assets/js/web3/abi/i_se_audit_manager_abi.js"></script>
+    <script src="assets/js/web3/abi/i_se_audit_contract_abi.js"></script>
+
+    <!-- Web3 -->
+    <script src="assets/js/web3/connect.js"></script>
+    <script>
+        const assessmentTitle               = ge("assessment_title");
+        const submittedFiles                = ge("submitted_files");
+        const assessmentNotesDisplaySpan    = ge("assessment_notes");
+        const assessmentStatusDisplaySpan   = ge("assessment_status");
+        const ownerNameDisplaySpan          = ge("ownerName");
+        const ownerAddressSpan              = ge("ownerAddress");
+        const auditorNameDisplaySpan        = ge("auditorName");
+        const auditorAddressDisplaySpan     = ge("auditor");
+       
+        const auditDeclaration              = ge("audit_declaration");
+        const auditReport                   = ge("audit_report");
+        const estimatedEndDate              = ge("estimated_end_date");
+        const actualEndDate                 = ge("actual_end_date");
+       
+       
+        const auditFilesTable               = ge("audit_files_table");
+
+        const submitForAuditDisplay         = ge("submit_audit_display");
+        const auditTimesCardDisplay         = ge("assessment_times_card_display");
+        const assessmentReportCardDisplay   = ge("assessment_report_card_display");
+        const auditReportCardDisplay        = ge("audit_report_card_display");
+        const withdrawCardDisplay           = ge("withdraw_card_display");
+      
+        const blockchainMessageDisplay      = ge("blockchain_message_display");
+
+        const urlParams                     = new URLSearchParams(window.location.search); 
+        var auditContract;
+        var auditContractAddress;
+
+        function loadPage() { 
+            auditContractAddress            = urlParams.get("auditContract");
+            console.log(auditContractAddress);
+            auditContract                   = getContract(iSEAuditContractAbi, auditContractAddress);    
+            
+            
+            auditContract.methods.getAuditSeed().call({ from : account })
+            .then(function(response){
+                console.log(response);
+                var auditSeed = response; 
+                ownerNameDisplaySpan.innerHTML      = "";
+                ownerNameDisplaySpan.innerHTML      = auditSeed.ownerName; 
+                ownerAddressSpan.innerHTML          = auditSeed.owner; 
+                assessmentTitle.innerHTML           = auditSeed.auditTitle; 
+                auditorNameDisplaySpan.innerHTML    = auditSeed.auditorName; 
+                auditorAddressDisplaySpan.innerHTML = auditSeed.auditor; 
+
+                setFileData(auditContract, auditSeed); 
+                setStatus(auditContract, auditSeed);
+
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+
+        function setStatus(auditContract, seed) {
+            auditContract.methods.getStatus().call({ from : account })
+            .then(function(response){
+                console.log(response);
+                var status = response; 
+                assessmentStatusDisplaySpan.innerHTML = ""; 
+                assessmentStatusDisplaySpan.innerHTML = response; 
+
+                if(account.toLowerCase() === seed.owner.toLowerCase()) {
+                    showWithdraw(); 
+                }
+
+                if(status === "AWAITING_AUDIT") {
+                    showBookForAudit(); 
+                }
+                if(status === "BOOKED_FOR_AUDIT") {
+                    console.log("showing submit stuff");
+                    if(account.toLowerCase() === seed.auditor.toLowerCase()){
+                        console.log("auditor access");
+                        showSubmitAudit(); // auditor only
+                    }
+                }
+
+                if(status === "AUDIT_COMPETE") {
+                    if(account.toLowerCase() === seed.owner.toLowerCase()) {
+                        showMakePublic(); // owner only 
+                        showAuditReport(); 
+                    }
+                }
+
+                if(status === "PUBLIC") {
+                    showPerformanceData();                     
+                    showAuditReport(); 
+                }
+            })
+
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+
+
+        function bookForAudit() { 
+            auditContract.methods.bookForAudit(auditorName.value).send({ from : account}) 
+            .then(function(response){
+                console.log(response);  
+                blockchainMessageDisplay.innerHTML = "Audit Booked : " + response.blockHash; 
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+
+        function submitAudit() { 
+            var auditReportUri; 
+            var declaration = auditDeclaration.value;
+            var auditorSealUri; 
+            var manifestUri; 
+
+            auditContract.methods.bookForAudit(auditReportUri, declaration, auditorSealUri, manifestUri).send({ from : account}) 
+            .then(function(response){
+                console.log(response);  
+                blockchainMessageDisplay.innerHTML = "Audit Report Submitted : " + response.blockHash; 
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+
+        function makePublic() { 
+            auditContract.methods.makePublic().send({ from : account}) 
+            .then(function(response){
+                console.log(response);  
+                blockchainMessageDisplay.innerHTML = "Audit Contract Public : " + response.blockHash; 
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+
+        function withdraw() { 
+            auditContract.methods.withdraw().send({ from : account}) // remember to deploy to v15 of contract factory 
+            .then(function(response){
+                console.log(response);  
+                blockchainMessageDisplay.innerHTML = "Audit Contract Withdrawn : "+ response.blockHash; 
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+
+        }
+
+        function showAuditReport() { 
+/*
+              <div class="card">
+                            <div class="card-body py-4 px-4">
+                                <div class="d-flex align-items-center">             
+                                    <div class="avatar avatar-xl">
+                                        <i class="bi-file-post"></i>
+                                    </div>
+                                    <div class="ms-3 name">
+                                        <h5 class="font-bold">Audit Report</h5>
+                                        <h6 class="text-muted mb-0"></h6>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        
+*/
+          auditReportCardDisplay.innerHTML = ""; 
+          var card = ce("div")  ;
+          auditReportCardDisplay.append(card);
+          card.setAttribute("class", "card");
+          var cardBody = ce("div");
+          card.append(cardBody);
+          cardBody.setAttribute("class", "card-body py-4 px-4");
+          var align = ce("div");
+          align.setAttribute("class", "d-flex align-items-center");
+          cardBody.append(align);
+          var icon = ce("div");
+          icon.setAttribute("class", "avatar avatar-xl");
+          var i = ce("i");
+          i.setAttribute("class","bi-file-post");
+          icon.append(i);
+          align.append(icon)
+          var name = ce("div");
+          name.setAttribute("class","ms-3 name");
+          align.append(name);
+          var h5 = ce("h5");
+          h5.setAttribute("class", "font-bold");
+          h5.append(text("Audit Report"));
+          name.append(h5);
+          var h6 = ce("h6");
+          h6.setAttribute("class", "text-muted mb-0");
+          name.append(h6);
+          var a = ce("a");
+          h6.append(a);
+          a.append(text("Click to review"));
+          auditContract.methods.getAuditReport().call({from : account})
+          .then(function(response){
+            console.log(response);
+            auditDeclaration.innerHTML = resolve(response._declaration);
+            a.setAttribute("href", "ipfs://"+response._auditReportUri);
+          })
+          .catch(function(err){
+            console.log(err);
+          })          
+        }
+
+        function resolve(declaration) {
+            if(declaration == 0) {
+                return "<font color=\"green\">SATISFIED</font>"; 
+            }
+            if(declaration == 1) {
+                return "<font color=\"red\">NOT SATISFIED</font>"; 
+            }
+            return "<font color=\"amber\">INDETERMINATE</font>";
+        }
+
+        function showWithdraw() {
+           withdrawCardDisplay.innerHTML = ""; 
+           var card = ce("div");
+           card.setAttribute("class", "card");
+           withdrawCardDisplay.append(card);
+           var cardBody = ce("div");
+           cardBody.setAttribute("class", "card-body");
+           card.append(cardBody);
+           
+           var p = ce("p");
+           cardBody.append(p);
+           p.setAttribute("class","card-text");
+           var center = ce("center");
+           var a = ce("a");
+           a.setAttribute("href","javascript:withdraw()");
+           a.setAttribute("class", "btn btn-danger");
+           a.append(text("Withdraw"));
+           center.append(a);
+           p.append(center);
+        }
+
+        function showPerformanceData() { 
+
+        }
+
+        function showBookForAudit() { 
+            submitForAuditDisplay.innerHTML = ""; 
+           var card = ce("div");
+           card.setAttribute("class", "card");
+           submitForAuditDisplay.append(card);
+           
+           var cardHeader = ce("div");
+           cardHeader.setAttribute("class", "card-header");
+           var h4 = ce("h4");
+           h4.append(text("Book For Audit"));
+           cardHeader.append(h4);
+           var cardBody = ce("div");
+           cardBody.setAttribute("class", "card-body");
+                      
+           var p = ce("p");
+           cardBody.append(p);           
+           p.setAttribute("class", "card-text");
+           var label = ce("label");
+           label.setAttribute("for","auditor_name");
+           label.append(text("Enter Auditor Name"));
+           p.append(label);
+           var br = ce("br");
+           p.append(br);
+           var input = ce("input");
+           input.setAttribute("type", "text");
+           input.setAttribute("id", "auditor_name");
+           input.setAttribute("class", "form-control");
+           p.append(input);
+
+           var a = ce("a");
+           a.setAttribute("href","javascript:bookForAudit()");
+           a.setAttribute("class", "btn btn-danger");
+           a.append(text("Book For Audit"));
+           p.append(a);
+        }
+
+        function showSubmitAudit() { 
+/*
+ <div class="card">
+                        <div class="card-header">
+                            <h4>Submit Audit</h4>
+                        </div>
+                        <div class="card-body">
+                            <p class="card-text">
+                                <label for="audit_declaration">Audit Declaration</label>
+                                <select id="audit_declaration" class="form-control">
+                                    <option value="0">SATISFIED</option>
+                                    <option value="1">NOT_SATISFIED</option>
+                                </select>
+                            </p>
+                            <p class="card-text">
+                                <label for="audit_report">Upload Audit Report</label>
+                                <!-- Basic file uploader --><br/>
+                                <input type="file" id="audit_report" class="basic-filepond">
+                            </p>
+                            <p class="card-text">
+                                <label for="declaration_seal">Upload Declaration Seal</label>
+                                <!-- Basic file uploader --><br/>
+                                <input type="file" id="declaration_seal" class="basic-filepond">
+                            </p>
+                            <a href="javascript:submitAuditReport()" class="btn btn-danger">Submit Audit</a>
+                        </div>
+                    </div>
+*/
+           submitForAuditDisplay.innerHTML = ""; 
+           var card = ce("div");
+           card.setAttribute("class", "card");
+           submitForAuditDisplay.append(card);
+           
+
+           var cardHeader = ce("div");
+           cardHeader.setAttribute("class", "card-header");
+           var h4 = ce("h4");
+           h4.append(text("Submit Audit Report and Declaration"));
+           cardHeader.append(h4);
+           card.append(cardHeader);
+           var cardBody = ce("div");
+           cardBody.setAttribute("class", "card-body");
+           card.append(cardBody);
+          
+           var table = ce("table");
+           cardBody.append(table);
+           var row = table.insertRow();
+           var declarationCell = row.insertCell(); 
+          
+           // declaration
+           var p = ce("p");
+           declarationCell.append(p);
+           p.setAttribute("class", "card-text");           
+           var label = ce("label");
+           label.setAttribute("for","audit_declaration");
+           label.append(text("Audit Declaration"));
+           p.append(label);
+           var selectDeclaration = ce("select");
+           selectDeclaration.setAttribute("id", "audit_declaration");
+           selectDeclaration.setAttribute("class","form-control");
+           p.append(selectDeclaration);
+           var option1 = ce("option");
+           var option2 = ce("option");
+           option1.setAttribute("value", "0");
+           option1.append(text("SATISFIED"));
+           option2.setAttribute("value", "1");
+           option2.append(text("NOT_SATISFIED"));
+           selectDeclaration.append(option1);
+           selectDeclaration.append(option2);
+
+           // seal
+           var declarationSealCell = row.insertCell(); 
+           var p2 = ce("p");
+           declarationSealCell.append(p2);
+           p2.setAttribute("class", "card-text");
+           var label2 = ce("label");
+           label2.setAttribute("for","declaration_seal");
+           label2.append(text("Upload Declaration Seal"));
+           p2.append(label2);
+           var br = ce("br");
+           p2.append(br);
+           var input = ce("input");
+           input.setAttribute("type", "file");
+           input.setAttribute("id", "declaration_seal");
+           input.setAttribute("class", "basic-filepond");
+           p2.append(input);
+            
+
+           var row2 = table.insertRow()
+           var actionCell = row2.insertCell(); 
+           var a = ce("a");
+           a.setAttribute("href","javascript:submitAuditReport()");
+           a.setAttribute("class", "btn btn-danger");
+           a.append(text("Submit Audit"));
+           actionCell.append(a);
+
+           var uploadReportCell = row2.insertCell(); 
+          
+           var p3 = ce("p");
+           uploadReportCell.append(p3);
+           p2.setAttribute("class", "card-text");
+           var label3 = ce("label");
+           label3.setAttribute("for","audit_report");
+           label3.append(text("Audit Report"));
+           p3.append(label3);
+           var br1 = ce("br");
+           p3.append(br1);
+           var input1 = ce("input");
+           input1.setAttribute("type", "file");
+           input1.setAttribute("id", "audit_report");
+           input1.setAttribute("class", "basic-filepond");
+           p3.append(input1);
+        }
+
+
+        function setFileData(assessmentContract, seed){
+            auditContract.methods.getUrisToAudit().call({ from : account})
+            .then(function(response){
+                console.log(response);
+                var auditUris = response[0];
+                submittedFiles.innerHTML = ""; 
+                submittedFiles.innerHTML = "<b>"+auditUris.length+"</b>";
+
+                var notesUri = response[1];
+                assessmentNotesDisplaySpan.innerHTML = ""; 
+                assessmentNotesDisplaySpan.innerHTML = "<a href=\"ipfs://"+notesUri+ "\" target=\"_blank\">Click to review</a>";
+
+                var tbody = auditFilesTable.getElementsByTagName("tbody")[0];
+                tbody.innerHTML = ""; 
+                for(var x = 0; x < auditUris.length; x++) {
+                    var auditUri = auditUris[x];
+                    var row = tbody.insertRow(); 
+                    var labelCell = row.insertCell(); 
+                    labelCell.append(text(auditUri.label));
+                    var uriCell = row.insertCell();     
+                    
+                    console.log("account " + account + " seed " + seed.owner);
+                    console.log("audit uri : " + auditUri.isPrivate);
+                    if(auditUri.isPrivate == true ){
+
+                        if(account.toLowerCase() === seed.owner.toLowerCase() || account.toLowerCase() === seed.auditor.toLowerCase()) {
+                            var a = ce("a");        
+                            a.setAttribute("href", "ipfs://"+auditUri.uri);
+                            a.setAttribute("target", "_blank");
+                            a.append(text(auditUri.uri))
+                            uriCell.append(a); 
+                        }
+                        else {
+                            uriCell.append(text("XXXX PRIVATE XXXXX"));                
+                        }
+                    }
+                    else { 
+                        var a = ce("a");        
+                        a.setAttribute("href", "ipfs://"+auditUri.uri);
+                        a.setAttribute("target", "_blank");
+                        a.append(text(auditUri.uri))
+                        uriCell.append(a);            
+                    }
+                    
+                    var privacyCell = row.insertCell(); 
+                    privacyCell.append(text(auditUri[2]));
+                }
+
+
+            })
+            .catch(function(err){
+                console.log(err);
+            })
+        }
+    </script> 
+
+</body>
+
+</html>
