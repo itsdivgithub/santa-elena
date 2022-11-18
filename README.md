@@ -1,4 +1,4 @@
-# Santa Elena
+# Santa Elena- Chainlink Fall 2022
 This is the Santa Elena repository. The Santa Elena project is about creating a platform that will allow independent groups to collate their climate data on the decentralized Web. 
 Santa Elena works by using both NFT.storage and Web3.storage to store environmental data that is submitted as part of an environmental assessment. On upload the uploader is issued 
 with an NFT proof of their upload. 
